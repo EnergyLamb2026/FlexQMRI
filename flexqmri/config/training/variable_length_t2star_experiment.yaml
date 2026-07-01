@@ -1,0 +1,43 @@
+experiment:
+  modality: t2star
+  n_test_samples: 2000
+  seed: 0
+
+  # Variable-length test data: TEs sampled uniformly from the training
+  # distribution [0.5, 30] ms, same as during model training.
+  test_min_x_length: 6
+  test_max_x_length: 9
+
+  # Number of target TEs for MLP-10/Transformer-10 interpolation.
+  # Each sample is interpolated to n_x_interpolate equally-spaced TEs
+  # spanning that sample's own TE range (no extrapolation).
+  n_x_interpolate: 10
+
+  # Model entries. The first entry (adapt: none) must be the NCDE; its config.json
+  # is used as the base for data generation parameters. The NCDE defaults to the
+  # bundled ncde_t2star checkpoint; the MLP/Transformer checkpoints come from the model
+  # download (see README) — adjust the paths to match your unpacked checkpoints.
+  models:
+    - label: "NCDE (variable length)"
+      model_path: results/t2star/ncde/ncde_t2star/best_model_0.pth
+      adapt: none
+
+    - label: "MLP-5 (undersample)"
+      model_path: results/t2star/mlp/mlp_t2star/best_model_5.pth
+      adapt: undersample
+      fixed_length: 5
+
+    - label: "Transformer-5 (undersample)"
+      model_path: results/t2star/transformer/transformer_t2star/best_model_5.pth
+      adapt: undersample
+      fixed_length: 5
+
+    - label: "MLP-10 (interpolate)"
+      model_path: results/t2star/mlp/mlp_t2star/best_model_10.pth
+      adapt: interpolate
+      fixed_length: 10
+
+    - label: "Transformer-10 (interpolate)"
+      model_path: results/t2star/transformer/transformer_t2star/best_model_10.pth
+      adapt: interpolate
+      fixed_length: 10

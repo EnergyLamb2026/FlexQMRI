@@ -1,0 +1,11 @@
+# Model-specific config for Transformer (fixed-length input)
+# Inherits defaults from general.yaml, data config, and paths.yaml
+# Only Transformer-specific parameters and overrides are listed here
+
+data:
+  fixed_length: 10     # Transformer requires fixed-length input sequences
+
+train:
+  model: 'transformer'
+  dropout: 0.1        # Override default (Transformers benefit from moderate dropout)
+  n_head: 4           # Number of multi-head attention heads

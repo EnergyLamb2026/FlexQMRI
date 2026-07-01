@@ -1,0 +1,20 @@
+# DO NOT USE ANY e-3 etc !!!!
+# Use 0.0003 instead of 3e-4
+data:
+  modality: 'ivim'
+  param_model: 'ivim_bi_exp'  # IVIM bi-exponential model S(b) = S0 * [f*exp(-b*D*) + (1-f)*exp(-b*D)]
+  param_ranges: [[0.9, 1.1], [0.01, 0.6], [0.0001, 0.0035], [0.003, 0.1]]  # [S0, f, D, D*]; overrides the model defaults
+
+  fixed_length: 0 # set to zero by default, which means that the model is trained on variable-length acquisitions. If you want to train a model for a fixed acquisition length, set this to the desired number of b-values. 
+
+  simulation:
+    n_samples: 10000 
+    min_x_length: 4
+    max_x_length: 10
+    load: false
+    save: false 
+    input_file: "ivim_data.npz" # hypothetical file name for the simulated data. If load is true, this file is loaded from disk. If save is true, this file is saved to disk after simulation.
+    x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 200, 250, 300, 500, 600, 700, 800]  # Fixed b-values for training
+    train_val_test_split: [0.7, 0.1, 0.2]
+    snr_range: [5, 40]
+    b_jitter: 0.02  # Relative std of Gaussian perturbation on non-zero b-values (0=fixed, e.g. 0.02=2%)

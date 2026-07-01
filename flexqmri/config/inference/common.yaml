@@ -1,0 +1,12 @@
+# Common settings shared across all modalities
+common:
+  display: true # Whether to call plt.show() on the parameter-map figure.
+  slice: null # Slice index to process if you want to process only one (for faster tests). Set to null to process all slices.
+  save: true # Whether to save the parameter-map figure (PNG) to disk; separate from `{ivim,t2star}.maps.save`, which saves the NIfTI maps.
+
+paths:
+  dicom_data: ./data/raw/dicom_data/ # where you put your raw DICOM data. They are automatically converted to NIfTI and placed in `paths.nifti_data`.
+  sorted_dicom_data: ./data/processed/sorted_dicom_data/ # where the DICOM data is sorted by series (if not already). 
+  nifti_data: ./data/processed/nifti_data/ # where to put your NIfTI data or where it will end upafter conversion from DICOM. 
+  config: ./flexqmri/config/inference/   # directory holding ivim.yaml / t2star.yaml (run from repo root)
+  output_data: ./data/processed/outputs/ # where the resulting maps and parameters are saved.

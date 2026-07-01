@@ -1,0 +1,97 @@
+# =============================================================================
+# Strict Security Gitignore
+# Only allows code and documentation. Blocks all potential medical data.
+# =============================================================================
+
+# 1. Block everything by default
+*
+# Exceptions for hidden files (like .gitignore itself or .github folder)
+!.*
+!*/
+
+# 3. Whitelist: ALLOW only these extensions
+# --- Documentation ---
+!*.md
+!LICENSE
+
+# --- Python & Notebooks ---
+!*.py
+!*.ipynb
+!*.pyi
+
+# --- R & Statistics ---
+!*.R
+!*.Rmd
+!*.qmd
+
+# --- C / C++ / CUDA (Common for Imaging/GPU) ---
+!*.c
+!*.cpp
+!*.h
+!*.hpp
+!*.cu
+!*.cuh
+
+# --- Julia ---
+!*.jl
+
+# --- Shell & Automation ---
+!*.sh
+!*.bash
+!*.zsh
+
+# --- Web ---
+!*.html
+!*.css
+!*.js
+
+# --- Java / Scala ---
+!*.java
+!*.scala
+
+# 4. Blacklist: Explicitly BLOCK sensitive medical & data formats (just in case)
+*.csv
+*.xlsx
+*.xls
+*.tsv
+*.nii
+*.nii.gz
+*.dcm
+*.dicom
+*.nrrd
+*.mhd
+*.raw
+*.sqlite
+*.db
+*.parquet
+*.pkl
+*.pickle
+*.h5
+*.pth
+*.onnx
+*.txt
+*.log
+*.yaml
+*.yml
+*.json
+
+# 5. Block OS-generated files & IDEs (just in case)
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+
+# 6. Block Local Data Folders (just in case)
+data/**
+temp/**
+results/**
+
+# =============================================================================
+# 7. FlexQMRI exceptions (last match wins)
+# =============================================================================
+# Track configuration files (only under the package config folder) and pyproject.
+!flexqmri/config/**/*.yaml
+!flexqmri/config/**/*.yml
+!pyproject.toml

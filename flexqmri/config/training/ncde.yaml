@@ -1,0 +1,10 @@
+# Model-specific config for Neural CDE
+# Inherits defaults from general.yaml, data config, and paths.yaml
+# Only NCDE-specific parameters and overrides are listed here
+
+train:
+  model: 'ncde'
+  adjoint: false                          # Use adjoint method for memory-efficient backprop
+  adaptive: false                         # Use adaptive ODE solver (vs fixed-step)
+  time_step: 0.1                         # ODE solver step size (0 = automatic)
+  interpolation_during_training: false    # Build continuous path during training (slower and no more accurate)

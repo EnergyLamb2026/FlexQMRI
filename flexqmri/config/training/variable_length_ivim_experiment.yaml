@@ -1,0 +1,38 @@
+experiment:
+  modality: ivim
+  n_test_samples: 2000
+  seed: 0
+
+  # Clinical b-value sets
+  test_x_values: [0, 10, 50, 80, 100, 250, 800]        # 7 values — test data + NCDE input
+  x_values_5:    [0, 10, 50, 100, 800]                  # 5 values — strict subset for MLP-5/Transformer-5
+  x_values_10:   [0, 10, 30, 50, 70, 80, 100, 250, 500, 800]  # 10 values — interpolation target for MLP-10/Transformer-10
+
+  # Model entries. The first entry (adapt: none) must be the NCDE; its config.json
+  # is used as the base for data generation parameters. The NCDE defaults to the
+  # bundled ncde_ivim checkpoint; the MLP/Transformer checkpoints come from the model
+  # download (see README) — adjust the paths to match your unpacked checkpoints.
+  models:
+    - label: "NCDE (variable length)"
+      model_path: results/ivim/ncde/ncde_ivim/best_model_0.pth
+      adapt: none
+
+    - label: "MLP-5 (undersample)"
+      model_path: results/ivim/mlp/mlp_ivim/best_model_5.pth
+      adapt: undersample
+      fixed_length: 5
+
+    - label: "Transformer-5 (undersample)"
+      model_path: results/ivim/transformer/transformer_ivim/best_model_5.pth
+      adapt: undersample
+      fixed_length: 5
+
+    - label: "MLP-10 (interpolate)"
+      model_path: results/ivim/mlp/mlp_ivim/best_model_10.pth
+      adapt: interpolate
+      fixed_length: 10
+
+    - label: "Transformer-10 (interpolate)"
+      model_path: results/ivim/transformer/transformer_ivim/best_model_10.pth
+      adapt: interpolate
+      fixed_length: 10

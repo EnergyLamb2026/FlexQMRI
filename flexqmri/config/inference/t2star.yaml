@@ -1,0 +1,41 @@
+# R2*-specific configuration
+
+t2star:
+  anatomical:
+    mask:
+      method: 'totalsegmentator'  # Options: null, 'totalsegmentator', 'nifti'
+      structure: 'pancreas'  # Options: 'pancreas', 'liver', 'total_mr'. Only used when method: 'totalsegmentator'
+      path: null    # Path to .nii.gz mask file, only used when method: 'nifti'
+
+    loading:
+      keywords: ['T1', 'W', 'Ax', 'Apnee_2mm']
+      include: []
+      exclude: ['Art']
+
+  source: fit  # Options: 'fit' (raw multi-echo data + model), 'vendor' (precomputed map)
+
+  loading:
+    keywords: ['R2starMap']  # Keywords to identify R2* series
+    include: ['Images']      # Only include (Images) series, not (R2Star_Maps), for custom fitting. 
+    exclude: []
+    offset_path: './resources/T2starTEvalues.txt' # Echo times in ms. Ensure the fitted model was also trained with TE in ms, otherwise R2* = 1/T2* will be in ms^-1 instead of s^-1.
+
+  normalization:
+    method: 'm0'  # Options are null, 'm0', 'lin_interp', 'z_score' or 'minmax'
+
+  denoising:
+    method: null  # Options are null, 'pca', 'nlm' or 'mppca'. If null is provided, no denoising is performed
+    pca_criterion: 'malinowski'  # Criterion to select components in PCA denoising. Options are 'malinowski', 'nelson', 'median' or 'mle'
+
+  # Biophysical model parameter bounds, in parameter order [S0, T2* (ms)].
+  # Override the biophysical model's DEFAULT_RANGES at inference.
+  param_ranges: [[0.5, 1.5], [1, 100]]  # Optional override of [S0, T2* (ms)] ranges
+
+  maps:
+    save: true  # Whether to save the R2* maps as NIfTI files
+
+paths:
+  # Trained model used for inference. Defaults to the bundled NCDE checkpoint (ncde_t2star).
+  # config.json must sit next to the .pth (it is read by load_config_for_model).
+  r2star_model_path: results/t2star/ncde/ncde_t2star/best_model_0.pth
+  r2star_deepmr_config_path: results/t2star/ncde/ncde_t2star/config.json

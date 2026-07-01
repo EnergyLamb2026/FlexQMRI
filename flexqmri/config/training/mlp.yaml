@@ -1,0 +1,9 @@
+# Model-specific config for MLP (Multi-Layer Perceptron)
+# Inherits defaults from general.yaml, data config, and paths.yaml
+# Only MLP-specific parameters and overrides are listed here
+
+data:
+  fixed_length: 7     # MLP requires fixed-length input sequences
+
+train:
+  model: 'mlp'

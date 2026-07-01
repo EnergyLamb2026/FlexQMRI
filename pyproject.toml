@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flexqmri"
+version = "0.1.0"
+description = "Neural CDEs for flexible-length quantitative MRI: IVIM and R2* parameter estimation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    {name = "Anonymous"},
+]
+keywords = [
+    "quantitative MRI",
+    "neural controlled differential equations",
+    "IVIM",
+    "R2*",
+    "parameter estimation",
+]
+
+dependencies = [
+    # Deep-learning core (training, NCDE/MLP/Transformer, LSQ)
+    "torch>=2.0",
+    "torchcde>=0.2.5",
+    "lightning>=2.0",
+    "mlflow>=2.0",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "scikit-learn>=1.2",
+    "joblib>=1.2",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "PyYAML>=6.0",
+    # In-vivo inference pipeline (DICOM/NIfTI I/O, preprocessing, segmentation)
+    "nibabel>=5.0",
+    "dipy>=1.7",
+    "SimpleITK>=2.2",
+    "dicom2nifti>=2.4",
+    "totalsegmentator>=2.0",
+    "tqdm>=4.65",
+    # Repeatability statistics (ICC)
+    "pingouin>=0.5",
+]
+
+[project.urls]
+Repository = "https://github.com/EnergyLamb2026/FlexQMRI"
+
+[tool.setuptools.packages.find]
+include = ["flexqmri*"]
+
+[tool.setuptools.package-data]
+"flexqmri" = ["config/**/*.yaml"]

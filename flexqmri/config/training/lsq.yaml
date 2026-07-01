@@ -1,0 +1,14 @@
+# Model-specific config for LSQ
+# Load defaults from ivim_data.yaml (or t2star_data.yaml) and paths.yaml, override below as needed
+
+train: # there is not really any training for LSQ, but we keep this section for consistency with the other models
+  model: 'trf' # Options are 'lm' for Levenberg-Marquadt and 'trf' for Trust Region Reflective algorithm.
+  max_iter: 2000 # maximum number of iterations for the fitting
+  batch_size: 2048
+  seed: 0
+  seed_nbr: 1
+
+fit: 
+  f_tol: 0.000001 # tolerance for the fitting
+  x_tol: 0.000001 # tolerance for the fitting
+  n_fit: 1 # number of fitting times

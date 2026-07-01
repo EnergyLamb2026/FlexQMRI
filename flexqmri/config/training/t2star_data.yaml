@@ -1,0 +1,19 @@
+# DO NOT USE ANY e-3 etc !!!!
+# Use 0.0003 instead of 3e-4
+data:
+  modality: 't2star'
+  param_model: 't2star_mono_exp'  # Mono-exponential T2* decay S(TE) = S0 * exp(-TE / T2*)
+  param_ranges: [[0.5, 1.5], [1, 100]]  # [S0, T2*]; overrides the model defaults
+
+  fixed_length: 0 # set to zero by default, which means that the model is trained on variable-length acquisitions. If you want to train a model for a fixed acquisition length, set this to the desired number of echo times.
+
+  simulation:
+    n_samples: 10000
+    min_x_length: 4
+    max_x_length: 16
+    x_range: [0.5, 30]  # Echo time range in ms (uniform random sampling)
+    load: false
+    save: false
+    input_file: "t2star_data.npz" # hypothetical file name for the simulated data. If load is true, this file is loaded from disk. If save is true, this file is saved to disk after simulation.
+    train_val_test_split: [0.7, 0.1, 0.2]
+    snr_range: [5, 120]

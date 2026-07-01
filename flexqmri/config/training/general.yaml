@@ -1,0 +1,33 @@
+# General training defaults shared across all models
+# Model-specific configs override these values as needed
+
+train:
+  general_lr: 0.0001                # Learning rate for the optimizer
+  lr_scheduler_gamma: 0.999         # Exponential decay factor for learning rate scheduler
+  last_layer_lr_factor: 1           # Multiplier for the last layer learning rate
+  depth: 6                          # Number of layers / blocks in the network
+  activation: 'relu'                # Activation function (relu, tanh, gelu)
+  output_activation: 'sigmoid'      # Output activation to constrain predictions to [0, 1]
+  parallel: false                   # Train one sub-network per output parameter
+  pil: false                         # Use physics-informed loss
+  batchnorm: false                  # Use batch normalization
+  dropout: 0.0                      # Dropout rate (0.0 = no dropout)
+  uncertainty_weighted: false        # Use uncertainty-weighted multi-parameter loss
+  max_iter: 10000                   # Maximum number of training steps
+  lambda_update_frequency: 0        # Steps between loss weight updates (0 = disabled)
+  lambda_update_factor: 0.9         # Decay factor for loss weight updates
+  batch_size: 256                   # Training batch size
+  hidden_channels: 256              # Number of hidden units per layer
+  weight_decay: 0.0                 # L2 regularization weight
+  patience: 30                      # Early stopping patience (epochs without improvement)
+  seed: 0                           # Random seed for reproducibility
+  seed_nbr: 1                       # Number of runs with different seeds
+  k: 0                              # Cross-validation folds (0 = no cross-validation)
+  ml_flow_tracking: false           # Enable MLflow tracking of training runs
+  exp_description: ''               # Description of the MLflow experiment
+
+test:
+  batch_size: 16384                 # Batch size for inference
+
+paths:
+  output_dir: "results/"            # Root directory for training/reproduction outputs

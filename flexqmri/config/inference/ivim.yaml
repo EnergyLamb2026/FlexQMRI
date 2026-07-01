@@ -1,0 +1,37 @@
+# IVIM-specific configuration
+
+ivim:
+  anatomical:
+    mask:
+      method: 'totalsegmentator'  # Options: null, 'totalsegmentator', 'nifti'
+      structure: 'pancreas'  # Options: 'pancreas', 'liver', 'total_mr'. Only used when method: 'totalsegmentator'
+      path: null    # Path to .nii.gz mask file, only used when method: 'nifti'
+
+    loading:
+      keywords: ['T1', 'W', 'Ax', 'Apnee_2mm'] # Keywords to identify anatomical series used for pancreas segmentation. We recommend using a high-resolution T1-weighted anatomical series, e.g. a 3D Water Dixon or VIBE sequence. 
+      include: []
+      exclude: []
+
+  loading:
+    keywords: ['IVIM']  # Keywords to identify IVIM series
+    include: []
+    exclude: ['ADC', 'reversed'] # Sometimes, vendor reconstructs ADC maps and stores them in the same series as the IVIM images. Exclude them here.
+    offset_path: './resources/IVIMbvalues.txt'
+
+  normalization:
+    method: 'm0'  # Options are null, 'm0', 'lin_interp', 'z_score' or 'minmax'
+
+  denoising:
+    method: null  # Options are null, 'pca', 'nlm' or 'mppca'. If null is provided, no denoising is performed
+    pca_criterion: 'malinowski'  # Criterion to select components in PCA denoising. Options are 'malinowski', 'nelson', 'median' or 'mle'
+
+  # Biophysical model parameter bounds, in parameter order [S0, f, D, D*].
+  # Override the biophysical model's DEFAULT_RANGES at inference.
+  param_ranges: [[0.9, 1.1], [0.01, 0.6], [0.0001, 0.0035], [0.003, 0.1]]  # Optional override of [S0, f, D, D*] ranges
+
+  maps:
+    save: true # Whether to save the IVIM maps as NIfTI files in the output directory defined in common.yaml. If false, only the maps in memory are returned.
+
+paths: # To the trained model and config file. 
+  ivim_model_path: results/ivim/ncde/ncde_ivim/best_model_0.pth # Path to the .pth checkpoint file
+  ivim_deepmr_config_path: results/ivim/ncde/ncde_ivim/config.json # Path to the .json config file

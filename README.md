@@ -1,14 +1,14 @@
 # FlexQMRI
 
-**Neural CDEs for flexible-length quantitative MRI: IVIM and R2\* estimation in the pancreas.**
+**Neural CDEs for variable-length quantitative MRI: IVIM and R2\* estimation in the pancreas.**
 
 FlexQMRI estimates quantitative MRI (qMRI) parameters — intravoxel incoherent
 motion (IVIM: `f`, `D`, `D*`) and the transverse relaxation rate (R2\*) — from
 diffusion- and multi-echo-weighted signals. It compares a Neural Controlled
 Differential Equation (NCDE) that natively handles variable-length acquisitions
 against fixed-size deep-learning baselines (MLP, Transformer) and a least-squares
-(LSQ) fit. This repository reproduces the results from the MICCAI 2026 Workshop OffGrid Submission 
-*Neural CDEs for flexible-length quantitative MRI: IVIM and R2\* estimation in the pancreas*.
+(LSQ) fit. This repository reproduces the results from the MICCAI 2026 Workshop Off-Grid Submission 
+*Neural CDEs for variable-length quantitative MRI: IVIM and R2\* estimation in the pancreas*.
 
 ## Installation
 
